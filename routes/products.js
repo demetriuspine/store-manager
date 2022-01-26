@@ -7,6 +7,7 @@ const validateQuantity = require('../middlewares/products/validateQuantity');
 const router = express.Router();
 
 router.get('/', productsController.getAll);
+router.get('/:id', productsController.getById);
 router.post('/', validateQuantity, validateName, productExistence, productsController.create);
 
 module.exports = router;
