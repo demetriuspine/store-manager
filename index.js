@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const errorMiddleware = require('./middlewares/error');
+// const errorMiddleware = require('./middlewares/error');
 const productsRouter = require('./routes/products');
 
 const app = express();
@@ -14,7 +14,7 @@ app.get('/', (_request, response) => {
 
 app.use('/products', productsRouter);
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
