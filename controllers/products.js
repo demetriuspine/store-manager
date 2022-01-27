@@ -1,4 +1,5 @@
 const productServices = require('../services/products');
+const productModels = require('../models/products');
 
 const getAll = async (_req, res) => {
   try {
@@ -40,9 +41,21 @@ const update = async (req, res) => {
   }
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const productToBeDeleted = productServices.getById(id);
+    await productModels.remove(id);
+    res.status(200).json(productToBeDeleted);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  remove,
 };
