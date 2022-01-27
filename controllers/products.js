@@ -44,7 +44,7 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   const { id } = req.params;
   try {
-    const productToBeDeleted = productServices.getById(id);
+    const productToBeDeleted = await productServices.getById(id);
     await productModels.remove(id);
     res.status(200).json(productToBeDeleted);
   } catch (error) {
