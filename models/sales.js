@@ -29,7 +29,20 @@ const getAll = async () => {
   return rows;
 };
 
+const getById = async (id) => {
+  const query = `SELECT s.date, p.product_id, p.quantity
+                FROM
+                  StoreManager.sales_products AS p
+                INNER JOIN
+                  StoreManager.sales AS s ON p.sale_id = s.id
+                WHERE p.sale_id = ?;`;
+  const [rows] = await connection.execute(query, [id]);
+  console.log(rows);
+  return rows;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
