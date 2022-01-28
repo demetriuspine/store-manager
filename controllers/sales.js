@@ -29,4 +29,15 @@ const getById = async (req, res) => {
   }
 };
 
-module.exports = { create, getAll, getById };
+const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sale = req.body;
+    const response = await salesServices.update(id, sale);
+    return res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { create, getAll, getById, update };
