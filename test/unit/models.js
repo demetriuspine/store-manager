@@ -95,6 +95,28 @@ describe('Testa a camada model', () => {
     });
   });
 
+  describe('Retorno de um produto por id', async () => {
+    before(async () => {
+      const mockedProducts = [ allProducts ]
+      sinon.stub(connection, 'execute').resolves(mockedProducts);
+    });
 
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('retorna um produto com as propiedades "id", "name", "quantity"', async () => {
+      const product = await productsModel.getById(2);
+
+      expect(product).to.be.a.property('id');
+      expect(product).to.be.a.property('name');
+      expect(product).to.be.a.property('quantity');
+    });
+
+    it('retorna o produto esperado', async () => {
+      const product = await productsModel.getById(2);
+      expect(product).to.be.deep.equal(allProducts[0]);
+    });
+  });
 
 });
