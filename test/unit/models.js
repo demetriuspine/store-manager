@@ -4,11 +4,6 @@ const { expect } = require('chai');
 const connection = require('../../models/connection');
 const productsModel = require('../../models/products');
 
-const createBody = {
-  name: "Heilige IPA",
-  quantity: 10
-};
-
 const allProducts = [
   {
     "id": 1,
@@ -21,6 +16,19 @@ const allProducts = [
     "quantity": 30
   }
 ];
+
+const createBody = {
+  name: "Heilige IPA",
+  quantity: 10
+};
+
+const updateBody = {
+  id: 2,
+  name: "Delirium Tremens",
+  quantity: 2021
+}
+
+
 
 describe('Testa a camada model', () => {
   describe('Adiciona um produto com sucesso', () => {
@@ -116,6 +124,22 @@ describe('Testa a camada model', () => {
     it('retorna o produto esperado', async () => {
       const product = await productsModel.getById(2);
       expect(product).to.be.deep.equal(allProducts[0]);
+    });
+  });
+
+  describe('Atualiza um produto', async () => {
+    before(async () => {
+      const mockedProducts = [allProducts];
+      sinon.stub(connection, 'execute').resolves(mockedProducts);
+    });
+
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('atualiza as informações do produto', async () => {
+      const updateProduct = await productsModel.update(updateBody);
+      expect(updateProduct).to.be.deep.equal(updateBody);
     });
   });
 
