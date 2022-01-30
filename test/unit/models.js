@@ -30,7 +30,7 @@ const updateBody = {
 
 
 
-describe('Testa a camada model', () => {
+describe('Testa a camada model - products', () => {
   describe('Adiciona um produto com sucesso', () => {
     before(async () => {
       const execute = [{ insertId : 1 }]
